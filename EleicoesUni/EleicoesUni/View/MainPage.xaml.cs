@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EleicoesUni.Model;
+using EleicoesUni.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,6 +20,15 @@ namespace EleicoesUni
             turma.Items.Add("Turma Fisio 1");
             turma.Items.Add("Turma Fisio 2");
             turma.Items.Add("Turma Direito 5");
+        }
+
+        public void Button_Avancar(object sender, EventArgs e)
+        {
+            _= Navigation.PushModalAsync(new ViewTurma());
+        }
+        public void Button_Cadasto(object sender, EventArgs e)
+        {
+            _= Navigation.PushModalAsync(new ViewCadastro());
         }
     }
 }
