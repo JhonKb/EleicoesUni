@@ -3,23 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.MainPage">
 
-    <StackLayout>
+    <StackLayout BackgroundColor="LightGray">
         <StackLayout>
-            <Image></Image>
+            
+            <StackLayout>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
             
                 <Label Text="Eleições Unifacema" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
         </StackLayout>
-        <Label Text="Escolha eleição de turma" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,10,30,10"/>
+            
+            <StackLayout Margin="10,10,10,10">
+                
+                    <Frame CornerRadius="10">
+                    
+                        <StackLayout>
+                        <Path HorizontalOptions="Center" Fill="LightGray"
+                             Stroke="white">
+                            <Path.Data>
+                                <EllipseGeometry Center="50,50"
+                     RadiusX="50"
+                     RadiusY="50" />
+                            </Path.Data>
+                        </Path>
+                        <Picker x:Name="turma" Title="Selecione sua turma"></Picker>
+                        <Button TextColor="White" BackgroundColor="#2196F3" CornerRadius="10" Text="Avançar"></Button>
+                        <Label HorizontalOptions="Center" Text="* Selecione sua turma para avançar"></Label>
+                    </StackLayout>
+                    
+                </Frame>
+                <StackLayout Margin="10,350,10,10">
+                    <Button TextColor="White"  CornerRadius="10" BackgroundColor="#2196F3" Text="Cadastrar eleição"></Button>
+                    <Label HorizontalOptions="Center" Text="* Acesso restrito"></Label>
+                </StackLayout>
+                
+            
+           
+            </StackLayout>
 
-        <StackLayout Padding="30,10,30,10">
-            <Picker Title="Escolha sua turma" x:Name="turma"></Picker>
-            <Button Text="Selecionar"></Button>
+            
         </StackLayout>
-       
-        
-          
     </StackLayout>
 
 </ContentPage>
