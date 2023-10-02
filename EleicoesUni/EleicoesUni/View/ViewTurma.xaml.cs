@@ -12,9 +12,10 @@ namespace EleicoesUni.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewTurma : ContentPage
     {
-        public ViewTurma()
+        public ViewTurma(Turma turma)
         {
             InitializeComponent();
+            nomeTurma.Text = turma.NomeTurma.ToString();
         }
     }
 }

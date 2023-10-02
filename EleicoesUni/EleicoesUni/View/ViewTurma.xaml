@@ -23,7 +23,7 @@
         </StackLayout>
         <ScrollView>
             <StackLayout>
-                <Label Text="TURMA TAL" HorizontalTextAlignment="Center" TextColor="Black" FontSize="25" Margin="0,20,0,10"/>
+                <Label x:Name="nomeTurma" HorizontalTextAlignment="Center" TextColor="Black" FontSize="25" Margin="0,20,0,10"/>
                 <Frame CornerRadius="20" Margin="20">
 
                     <StackLayout>

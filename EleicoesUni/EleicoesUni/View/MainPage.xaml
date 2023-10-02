@@ -30,7 +30,7 @@
                     <Label Text="BEM VINDO!" HorizontalTextAlignment="Center" TextColor="Black" FontSize="20" Margin="0,0,0,10"/>
                     <Label Text="Selecione uma turma abaixo:" HorizontalTextAlignment="Center" TextColor="DarkSlateGray" FontSize="16" Margin="0,0,0,10"/>
                     <Frame CornerRadius="50" BackgroundColor="LightGray">
-                        <Picker x:Name="turma" Title="Selecionar" TitleColor="LightSlateGray" Margin="-5,-20,-5,-20" FontSize="14" TextColor="LightSlateGray"/>
+                        <Picker x:Name="nome" Title="Selecionar" TitleColor="LightSlateGray" Margin="-5,-20,-5,-20" FontSize="14" TextColor="LightSlateGray"/>
                     </Frame>
                     <Button Clicked="Button_Avancar" TextColor="White" BackgroundColor="MediumBlue" CornerRadius="50" Text="Avançar" Margin="0,20,0,20" FontSize="16"/>
 

@@ -15,16 +15,18 @@ namespace EleicoesUni
         public MainPage()
         {
             InitializeComponent();
-            turma.Items.Add("Turma ADS 1/2");
-            turma.Items.Add("Turma ADS 3/4");
-            turma.Items.Add("Turma Fisio 1");
-            turma.Items.Add("Turma Fisio 2");
-            turma.Items.Add("Turma Direito 5");
+            nome.Items.Add("Turma ADS 1/2");
+            nome.Items.Add("Turma ADS 3/4");
+            nome.Items.Add("Turma Fisio 1");
+            nome.Items.Add("Turma Fisio 2");
+            nome.Items.Add("Turma Direito 5");
         }
 
         public void Button_Avancar(object sender, EventArgs e)
         {
-            _= Navigation.PushModalAsync(new ViewTurma());
+            Turma turma = new Turma();
+            turma.NomeTurma = nome.SelectedItem.ToString();
+            _= Navigation.PushModalAsync(new ViewTurma(turma));
         }
         public void Button_Cadasto(object sender, EventArgs e)
         {
