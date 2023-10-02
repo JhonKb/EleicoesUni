@@ -2,6 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#2196F3</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout BackgroundColor="LightGray">
         <StackLayout>
@@ -18,21 +23,15 @@
                     <Frame CornerRadius="10">
                     
                         <StackLayout>
-                        <Path HorizontalOptions="Center" Fill="LightGray"
-                             Stroke="white">
-                            <Path.Data>
-                                <EllipseGeometry Center="50,50"
-                     RadiusX="50"
-                     RadiusY="50" />
-                            </Path.Data>
-                        </Path>
-                        <Picker x:Name="turma" Title="Selecione sua turma"></Picker>
+                        
+                        <Image HorizontalOptions="Center" Source="logo.png"/>
+                        <Picker TitleColor="#2196F3"  x:Name="turma" Title="Selecione sua turma"></Picker>
                         <Button TextColor="White" BackgroundColor="#2196F3" CornerRadius="10" Text="Avançar"></Button>
                         <Label HorizontalOptions="Center" Text="* Selecione sua turma para avançar"></Label>
                     </StackLayout>
                     
                 </Frame>
-                <StackLayout Margin="10,350,10,10">
+                <StackLayout Margin="10,250,10,10">
                     <Button TextColor="White"  CornerRadius="10" BackgroundColor="#2196F3" Text="Cadastrar eleição"></Button>
                     <Label HorizontalOptions="Center" Text="* Acesso restrito"></Label>
                 </StackLayout>
