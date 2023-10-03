@@ -16,6 +16,13 @@ namespace EleicoesUni.View
         {
             InitializeComponent();
             nomeTurma.Text = turma.NomeTurma.ToString();
+            barraaPorcentagem.Text = calcularPorcentagem(barraProgresso.Progress).ToString() + "%";
+        }
+
+        private int calcularPorcentagem(double valor)
+        {
+            int porcentagem = (int) (valor * 100);
+            return porcentagem;
         }
     }
 }
