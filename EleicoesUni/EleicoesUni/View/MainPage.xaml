@@ -2,41 +2,94 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.MainPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="Accent">mediumBlue</Color>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
-    <StackLayout BackgroundColor="LightGray">
-
-        <StackLayout >
-            <Frame BackgroundColor="MediumBlue">
-                <StackLayout BackgroundColor="MediumBlue">
-
-                    <Image HorizontalOptions="Center" Source="logo.png" Margin="20"/>
-                    <Label Text="UNIFACEMA" HorizontalTextAlignment="Center" TextColor="White" FontSize="40" FontAttributes="Bold"/>
-                    <Label Text="ELEIÇÕES" HorizontalTextAlignment="Center" TextColor="White" FontSize="30"  Margin="0,-10,0,100"/>
-                    
-                </StackLayout>
-            </Frame>
-        </StackLayout>
-        <StackLayout>
-            <Frame CornerRadius="20" Margin="20,-80,20,20">
-
+    <StackLayout>
+        <!-- Fundo da tela principal -->
+        <StackLayout.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#130647" Offset="0.0"/>
+                <GradientStop Color="#0000cd" Offset="0.5"/>
+                <GradientStop Color="#130647" Offset="1.0"/>
+            </LinearGradientBrush>
+        </StackLayout.Background>
+        <ScrollView>
+            <Grid>
                 <StackLayout>
+                    <StackLayout 
+                        Padding="60" VerticalOptions="Start" 
+                        HorizontalOptions="Center">
+                        <Image 
+                            HorizontalOptions="Center" 
+                            Source="logo.png"  
+                            WidthRequest="150" 
+                            HeightRequest="100" />
+                        <Label 
+                            Text="UNIFACEMA" 
+                            HorizontalOptions="Center" 
+                            TextColor="White" 
+                            FontSize="30" 
+                            FontAttributes="Bold"/>
+                        <Label 
+                            Text="ELEIÇÕES" 
+                            HorizontalOptions="Center" 
+                            TextColor="White" 
+                            FontSize="25"/>
+                    </StackLayout>
 
-                    <Label Text="BEM VINDO!" HorizontalTextAlignment="Center" TextColor="Black" FontSize="20" Margin="0,0,0,20"/>
-                    <Picker x:Name="nome" Title="Selecionar Turma" TitleColor="Gray" FontSize="14" TextColor="Black"/>
-                    <Button Clicked="Button_Avancar" TextColor="White" BackgroundColor="MediumBlue" CornerRadius="50" Text="Avançar" Margin="0,20,0,20" FontSize="16"/>
+                    <Frame CornerRadius="20" Margin="20" HasShadow="True">
+                        <StackLayout>
+                            <Label 
+                                Text="BEM VINDO!" 
+                                HorizontalTextAlignment="Center" 
+                                TextColor="Black" 
+                                FontSize="Large" 
+                                FontAttributes="Bold"/>
+
+                            <StackLayout Margin="20">
+                                <Label 
+                                    Text="Curso" 
+                                    FontSize="Medium" 
+                                    TextColor="Black" 
+                                    HorizontalOptions="Start"/>
+                                <Picker
+                                    x:Name="cursos"
+                                    Title="Selecione uma opção"
+                                    SelectedIndexChanged="PKRSelecionado"/>
+                                <Label 
+                                    Text="Turma" 
+                                    FontSize="Medium" 
+                                    TextColor="Black" 
+                                    HorizontalOptions="Start"/>
+                                <Picker
+                                    x:Name="turmas"
+                                    Title="Selecione uma opação"/>
+                            </StackLayout>
+                            <Button 
+                                x:Name="BTNEntrar" 
+                                Text="Entrar" 
+                                BackgroundColor="#0000cd" 
+                                TextColor="White" 
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="200"
+                                CornerRadius="20"
+                                Clicked="BTNEntrar_Clicked"/>
+
+                        </StackLayout>
+                    </Frame>
 
                 </StackLayout>
-            </Frame>
-            <StackLayout>
-                <Button Clicked="Button_Cadasto" TextColor="White"  CornerRadius="50" BackgroundColor="MediumBlue" Text="Cadastrar eleição" Margin="40,200,40,0" FontSize="16"/>
-                <Label HorizontalOptions="Center" Text="* Acesso restrito" TextColor="DarkRed"/>
-            </StackLayout>
-        </StackLayout>
+                <BoxView 
+                    x:Name="TelaPreta" 
+                    Color="Black" 
+                    Opacity="0.5" 
+                    IsVisible="false"/>
+                <ActivityIndicator 
+                    x:Name="RodaCarregamento" 
+                    Color="White" 
+                    IsVisible="false" 
+                    IsRunning="false" 
+                    Scale="0.2"/>
+            </Grid>
+        </ScrollView>
     </StackLayout>
 
 </ContentPage>

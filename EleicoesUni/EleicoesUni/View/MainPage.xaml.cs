@@ -1,11 +1,7 @@
 ﻿using EleicoesUni.Model;
+using EleicoesUni.Utils;
 using EleicoesUni.View;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace EleicoesUni
@@ -15,22 +11,27 @@ namespace EleicoesUni
         public MainPage()
         {
             InitializeComponent();
-            nome.Items.Add("Turma ADS 1/2");
-            nome.Items.Add("Turma ADS 3/4");
-            nome.Items.Add("Turma Fisio 1");
-            nome.Items.Add("Turma Fisio 2");
-            nome.Items.Add("Turma Direito 5");
+            NavigationPage.SetHasNavigationBar(this, false);
+            cursos.Items.Add("ADS");
+            cursos.Items.Add("Fisioterapia");
+            cursos.Items.Add("Psicologia");
         }
 
-        public void Button_Avancar(object sender, EventArgs e)
+        public void PKRSelecionado(object sender, EventArgs e)
         {
-            Turma turma = new Turma();
-            turma.NomeTurma = nome.SelectedItem.ToString();
-            _= Navigation.PushModalAsync(new ViewTurma(turma));
+            turmas.Items.Clear();
+            turmas.Items.Add("ADS 3/4");
+            turmas.Items.Add("ADS 1/2");
         }
-        public void Button_Cadasto(object sender, EventArgs e)
+
+        private void BTNEntrar_Clicked(object sender, EventArgs e)
         {
-            _= Navigation.PushModalAsync(new ViewCadastro());
+            Navigation.PushAsync(new TurmaView());
+            Carregamento carregamento = new Carregamento();
+            var tela = TelaPreta.IsVisible;
+            var roda = RodaCarregamento.IsVisible;
+            var giro = RodaCarregamento.IsRunning;
+            carregamento.telaCarregamento(tela,roda,giro);
         }
     }
 }
