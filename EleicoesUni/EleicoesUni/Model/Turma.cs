@@ -6,12 +6,14 @@ namespace EleicoesUni.Model
 {
     public class Turma
     {
-        int idTurma;
-        string nomeTurma;
-        int qntAlunos;
+        private int idTurma;
+        private string nomeTurma;
+        private int idCurso;
+        private int qntAlunos;
 
         public int IdTurma { get => idTurma; set => idTurma = value; }
         public string NomeTurma { get => nomeTurma; set => nomeTurma = value; }
+        public int IdCurso { get => idCurso; set => idCurso = value; }
         public int QntAlunos { get => qntAlunos; set => qntAlunos = value; }
     }
 }
