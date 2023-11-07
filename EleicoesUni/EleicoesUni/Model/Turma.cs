@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EleicoesUni.Model
+﻿namespace EleicoesUni.Model
 {
     public class Turma
     {
-        private int idTurma;
+        private int id;
         private string nomeTurma;
-        private int idCurso;
-        private int qntAlunos;
+        private string cursoTurma;
 
-        public int IdTurma { get => idTurma; set => idTurma = value; }
+        public int Id { get => id; set => id = value; }
         public string NomeTurma { get => nomeTurma; set => nomeTurma = value; }
-        public int IdCurso { get => idCurso; set => idCurso = value; }
-        public int QntAlunos { get => qntAlunos; set => qntAlunos = value; }
+        public string CursoTurma { get => cursoTurma; set => cursoTurma = value; }
     }
 }

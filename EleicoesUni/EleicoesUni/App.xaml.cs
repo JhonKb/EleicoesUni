@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using EleicoesUni.View;
+using Xamarin.Forms;
 
 namespace EleicoesUni
 {
@@ -7,7 +8,7 @@ namespace EleicoesUni
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

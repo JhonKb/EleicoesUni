@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EleicoesUni.View.ChapasView"
+             Title="Chapas"
+             BackgroundColor="AntiqueWhite">
+
+    <StackLayout>
+        <ListView x:Name="ChapaListView" HasUnevenRows="True" SeparatorVisibility="None" SelectionMode="None" VerticalScrollBarVisibility="Never">
+            <ListView.Header>
+                <StackLayout Margin="20,20,20,0">
+                    <StackLayout>
+                        <Frame CornerRadius="10">
+                            <StackLayout Padding="-10">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label x:Name="PorcentagemTotal" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Label x:Name="VotosRestantes" TextColor="#006d65" FontAttributes="Bold"/>
+                                <ProgressBar x:Name="ProgressVotos"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label x:Name="Candidatos" Text="Candidatos" FontAttributes="Bold" FontSize="25" TextColor="Black" Margin="0,20,0,10"/>
+                        <Label x:Name="SemCandidatos" Text="Não há chapas cadastradas nesta turma!" IsVisible="false" FontAttributes="Bold" FontSize="20" TextColor="Black" Margin="0,20,0,10" HorizontalOptions="CenterAndExpand" Opacity="0.5"/>
+                    </StackLayout>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="20,0,20,0">
+                            <Frame CornerRadius="10" Margin="0,0,0,10">
+                                <StackLayout Margin="-6,-2,-6,-2">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout HorizontalOptions="StartAndExpand">
+                                            <Label Text="Líder" TextColor="Black" TextTransform="Uppercase" Margin="0,0,0,-8"/>
+                                            <Label Text="{Binding NomeLider}" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold" FontSize="20" />
+                                            <Label Text="Vice-Líder" TextColor="Black" TextTransform="Uppercase" Margin="0,8,0,-8"/>
+                                            <Label Text="{Binding NomeVice}" TextTransform="Uppercase" TextColor="Black" FontAttributes="Bold" FontSize="20"/>
+                                        </StackLayout>
+                                        <StackLayout WidthRequest="100">
+                                            <Label  Text="{Binding PorcentagemVotos}" FontAttributes="Bold" FontSize="25" HorizontalOptions="End" TextColor="#006d65" Opacity="1"/>
+                                            <Label Text="{Binding QuantidadeVotos}" FontSize="18" TextColor="Black" TextTransform="Uppercase" HorizontalOptions="End" FontAttributes="Bold" Opacity="0.7" Margin="0,-2,0,-8"/>
+                                            <Label Text="Votos" HorizontalOptions="End" TextColor="Black" Opacity="0.5" FontAttributes="Bold"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal"  Margin="0,20,0,0">
+                                        <Label Text="COD." TextColor="Black" FontAttributes="Bold" Opacity="0.5" HorizontalOptions="EndAndExpand" VerticalOptions="End" Margin="0,0,0,5"/>
+                                        <Label Text="{Binding Id}" TextColor="#00005a" FontAttributes="Bold" FontSize="30" HorizontalOptions="End" VerticalOptions="End"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <StackLayout Margin="20,0,20,20">
+                    <Button Text="Adicionar Chapa" BackgroundColor="#000080" CornerRadius="10" TextColor="White" Clicked="BTNAdicionarChapa"/>
+                </StackLayout>
+            </ListView.Footer>
+        </ListView>
+    </StackLayout>
+</ContentPage>

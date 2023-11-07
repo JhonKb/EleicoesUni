@@ -1,23 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EleicoesUni.View.TurmaView">
-    <Grid>
+             x:Class="EleicoesUni.View.TurmaView"
+            NavigationPage.HasBackButton="false">
+    <NavigationPage.TitleView>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="turmaNome" 
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="30"
+                   TextColor="White"
+                   Margin="0, 0, 20, 0"/>
         </StackLayout>
-        <BoxView 
-    x:Name="TelaPreta" 
-    Color="Black" 
-    Opacity="0.5" 
-    IsVisible="false"/>
-        <ActivityIndicator 
-    x:Name="RodaCarregamento" 
-    Color="White" 
-    IsVisible="false" 
-    IsRunning="false" 
-    Scale="0.2"/>
-    </Grid>
-</ContentPage>
+    </NavigationPage.TitleView>
+</TabbedPage>

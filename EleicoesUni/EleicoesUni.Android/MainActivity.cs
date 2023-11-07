@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.OS;
 using Xamarin.Forms;
 using Android.Views;
+using AndroidX.AppCompat.App;
 
 namespace EleicoesUni.Droid
 {
@@ -16,11 +17,12 @@ namespace EleicoesUni.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
+            SetStatusBarColor(Android.Graphics.Color.Transparent);
+            AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
-            SetStatusBarColor(Android.Graphics.Color.Transparent);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

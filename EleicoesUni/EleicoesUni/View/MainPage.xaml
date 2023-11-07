@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.MainPage">
     <StackLayout>
+
         <!-- Fundo da tela principal -->
         <StackLayout.Background>
             <LinearGradientBrush>
@@ -11,9 +12,11 @@
                 <GradientStop Color="#130647" Offset="1.0"/>
             </LinearGradientBrush>
         </StackLayout.Background>
-        <ScrollView>
+        <ScrollView VerticalOptions="FillAndExpand">
             <Grid>
                 <StackLayout>
+
+                    <!-- Logo e Título -->
                     <StackLayout 
                         Padding="60" VerticalOptions="Start" 
                         HorizontalOptions="Center">
@@ -35,8 +38,9 @@
                             FontSize="25"/>
                     </StackLayout>
 
-                    <Frame CornerRadius="20" Margin="20" HasShadow="True">
-                        <StackLayout>
+                    <!-- Card com as opções de curso/turma -->
+                    <Frame CornerRadius="10" Margin="50">
+                        <StackLayout Margin="10">
                             <Label 
                                 Text="BEM VINDO!" 
                                 HorizontalTextAlignment="Center" 
@@ -44,46 +48,56 @@
                                 FontSize="Large" 
                                 FontAttributes="Bold"/>
 
-                            <StackLayout Margin="20">
+                            <StackLayout Margin="0,20,0,20">
                                 <Label 
-                                    Text="Curso" 
+                                    Text="Curso:" 
                                     FontSize="Medium" 
                                     TextColor="Black" 
-                                    HorizontalOptions="Start"/>
+                                    HorizontalOptions="Start"
+                                    FontAttributes="Bold"
+                                    Opacity="0.8"
+                                    Margin="0,0,0,-10"/>
                                 <Picker
                                     x:Name="cursos"
+                                    TextColor="Black"
                                     Title="Selecione uma opção"
                                     SelectedIndexChanged="PKRSelecionado"/>
                                 <Label 
                                     Text="Turma" 
                                     FontSize="Medium" 
                                     TextColor="Black" 
-                                    HorizontalOptions="Start"/>
+                                    HorizontalOptions="Start"
+                                    FontAttributes="Bold"
+                                    Opacity="0.8"
+                                    Margin="0,10,0,-10"/>
                                 <Picker
                                     x:Name="turmas"
-                                    Title="Selecione uma opação"/>
+                                    TextColor="Black"
+                                    Title="Selecione uma opção"/>
                             </StackLayout>
                             <Button 
                                 x:Name="BTNEntrar" 
-                                Text="Entrar" 
+                                Text="Entrar"
                                 BackgroundColor="#0000cd" 
                                 TextColor="White" 
                                 HorizontalOptions="CenterAndExpand"
                                 WidthRequest="200"
-                                CornerRadius="20"
+                                CornerRadius="10"
                                 Clicked="BTNEntrar_Clicked"/>
 
                         </StackLayout>
                     </Frame>
 
                 </StackLayout>
+
+                <!-- Tela de carregamento -->
                 <BoxView 
                     x:Name="TelaPreta" 
                     Color="Black" 
                     Opacity="0.5" 
                     IsVisible="false"/>
                 <ActivityIndicator 
-                    x:Name="RodaCarregamento" 
+                    x:Name="Roda" 
                     Color="White" 
                     IsVisible="false" 
                     IsRunning="false" 
@@ -91,5 +105,4 @@
             </Grid>
         </ScrollView>
     </StackLayout>
-
 </ContentPage>

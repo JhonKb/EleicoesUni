@@ -1,37 +1,87 @@
-﻿using EleicoesUni.Model;
-using EleicoesUni.Utils;
+﻿using EleicoesUni.Utils;
 using EleicoesUni.View;
+using EleicoesUni.ViewModel;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace EleicoesUni
 {
     public partial class MainPage : ContentPage
     {
+        private MainPageViewModel viewModel;
+        private TelaCarregamento telaCarregamento;
         public MainPage()
         {
+            //Inicializando página
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
-            cursos.Items.Add("ADS");
-            cursos.Items.Add("Fisioterapia");
-            cursos.Items.Add("Psicologia");
+            viewModel = new MainPageViewModel();
+
+            //Inicializa a classe da tela de carregamento
+            telaCarregamento = new TelaCarregamento(TelaPreta, Roda);
+
+            //Adicionando cursos ao seletor de cursos
+            CarregarCursos();
         }
 
+        public async void CarregarCursos()
+        {
+            var cursosTurma = await viewModel.ListarCursosTurma();
+
+            foreach (var curso in cursosTurma)
+            {
+                cursos.Items.Add(curso);
+            }
+        }
+
+        public async void CarregarTurmas(string curso)
+        {
+            var nomeTurmas = await viewModel.ListarNomeTurmas(curso);
+
+            foreach (var turma in nomeTurmas)
+            {
+                turmas.Items.Add(turma);
+            }
+        }
+
+        //Método que atualiza o seletor de turma de acordo com o curso selecionado
         public void PKRSelecionado(object sender, EventArgs e)
         {
             turmas.Items.Clear();
-            turmas.Items.Add("ADS 3/4");
-            turmas.Items.Add("ADS 1/2");
+            CarregarTurmas(cursos.SelectedItem.ToString());
         }
 
-        private void BTNEntrar_Clicked(object sender, EventArgs e)
+        //Ação do botão principal de entrada
+        private async void BTNEntrar_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new TurmaView());
-            Carregamento carregamento = new Carregamento();
-            var tela = TelaPreta.IsVisible;
-            var roda = RodaCarregamento.IsVisible;
-            var giro = RodaCarregamento.IsRunning;
-            carregamento.telaCarregamento(tela,roda,giro);
+            try
+            {
+                //Ativando a tela de carregamento
+                telaCarregamento.CarregarTela();
+
+                //Verifica se turma esta selecionada
+                if (turmas.SelectedItem != null && cursos.SelectedItem != null)
+                {
+                    //Atribui a turma selecionada
+                    var turma = await viewModel.SelecionarTurma(turmas.SelectedItem.ToString());
+
+                    cursos.SelectedItem = string.Empty;
+                    turmas.SelectedItem = string.Empty;
+
+                    //Navegando para a próxima página
+                    await Navigation.PushModalAsync(new NavigationPage(new TurmaView(turma)));
+                    telaCarregamento.CarregarTela();
+                }
+                else
+                {
+                    telaCarregamento.CarregarTela();
+                    await DisplayAlert("Erro", "Selecione uma turma válida!", "OK");
+                }
+            } catch
+            {
+                telaCarregamento.CarregarTela();
+                await DisplayAlert("Erro", "Ocorreu um erro ineperado!", "OK");
+            } 
         }
     }
 }
