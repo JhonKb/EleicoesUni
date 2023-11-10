@@ -1,6 +1,7 @@
 ﻿using EleicoesUni.ViewModel;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,19 +11,16 @@ namespace EleicoesUni.View
     public partial class ChapasView : ContentPage
     {
         private ChapasViewModel viewModel;
-        private int idTurma;
 
         public ChapasView(int idTurma)
         {
-            this.idTurma = idTurma;
-            CarregarDados();
+            viewModel = new ChapasViewModel(idTurma);
+            _ = CarregarDados();
             InitializeComponent();
         }
 
-        public async void CarregarDados()
+        public async Task CarregarDados()
         {
-            viewModel = new ChapasViewModel(idTurma);
-
             var porcentagem = await viewModel.ObterPorcentagemVotosTurma();
             PorcentagemTotal.Text = porcentagem.ToString() + "% dos votos totalizados";
 
@@ -31,7 +29,7 @@ namespace EleicoesUni.View
 
             ProgressVotos.Progress = await viewModel.ObterProgressoBarra();
             
-            var chapas = await viewModel.ObterChapasTurma();
+            var chapas = await viewModel.ObterChapasViewTurma();
             ChapaListView.ItemsSource = chapas;
 
             if (chapas.Count() == 0)

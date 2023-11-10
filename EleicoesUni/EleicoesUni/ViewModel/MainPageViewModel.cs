@@ -1,73 +1,121 @@
 ﻿using EleicoesUni.Model;
 using EleicoesUni.Services;
-using System.Collections.Generic;
+using EleicoesUni.View;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace EleicoesUni.ViewModel
 {
-    public class MainPageViewModel
+    public class MainPageViewModel:GenericViewModel
     {
-        private ApiService<Turma> apiServiceTurma;
+        public ObservableCollection<string> Cursos { get; } = new ObservableCollection<string>();
+        public ObservableCollection<string> Turmas { get; } = new ObservableCollection<string>();
+        
+        private string _cursoSelecionado;
+        public string CursoSelecionado
+        {
+            get => _cursoSelecionado;
+            set
+            {
+                if (_cursoSelecionado != value)
+                {
+                    _cursoSelecionado = value;
+                    if (!string.IsNullOrEmpty(_cursoSelecionado))
+                    {
+                        _=LoadTurmas(_cursoSelecionado);
+                    }
+                    OnPropertyChanged(nameof(CursoSelecionado));
+                }
+            }
+        }
+
+        private string _turmaSelecionada;
+        public string TurmaSelecionada
+        {
+            get => _turmaSelecionada;
+            set
+            {
+                _turmaSelecionada = value;
+                OnPropertyChanged(nameof(TurmaSelecionada));
+            }
+        }
+        
+        public ICommand Entrar { get; private set; }
+
+
         public MainPageViewModel()
         {
-            apiServiceTurma = new ApiService<Turma>();
+            _=LoadCursos();
+            Entrar = new Command(async () => await LoadNextPage());
         }
 
-        public async Task<List<string>> ListarCursosTurma()
+        private async Task LoadCursos()
         {
-            var cursos = new List<string>();
-            var listaTurmas = await apiServiceTurma.GetObjectsAsync(true);
-
-            if (listaTurmas != null)
+            var turmas = await ApiServiceTurma.GetObjectsAsync(true);
+            if (turmas != null)
             {
-                foreach (var turma in listaTurmas)
+                var cursos = turmas.Select(t => t.CursoTurma).Distinct();
+                foreach (var curso in cursos)
                 {
-                    if (turma.CursoTurma != null && !cursos.Contains(turma.CursoTurma))
-                    {
-                        cursos.Add(turma.CursoTurma);
-                    }
-                }
+                    Cursos.Add(curso);
+                }                  
             }
-
-            return cursos;
-        }
-        public async Task<List<string>> ListarNomeTurmas(string curso)
-        {
-            var turmas = new List<string>();
-            var listaTurmas = await apiServiceTurma.GetObjectsAsync(true);
-
-            if (listaTurmas != null)
-            {
-                foreach (var turma in listaTurmas)
-                {
-                    if (turma.CursoTurma.Equals(curso) && turma.NomeTurma != null)
-                    {
-                        turmas.Add(turma.NomeTurma);
-                    }
-                }
-            }
-
-            return turmas;
         }
 
-        public async Task<Turma> SelecionarTurma(string nomeTurma)
+        private async Task LoadTurmas(string curso)
         {
-            var turma = new Turma();
-            var listaTurmas = await apiServiceTurma.GetObjectsAsync(true);
+            Turmas.Clear();
+            var turmas = await ApiServiceTurma.GetObjectsAsync(true);
 
-            if (listaTurmas != null)
+            if (turmas != null)
             {
-                foreach (var t in listaTurmas)
-                {
-                    if (t.NomeTurma.Equals(nomeTurma) && t.NomeTurma != null)
-                    {
-                        turma = t;
-                        break;
-                    }
+                var turmasFiltradas = turmas.Where(t => t.CursoTurma == curso);
+                foreach (var turma in turmasFiltradas)
+                {                   
+                    Turmas.Add(turma.NomeTurma);                   
                 }
             }
+        }
 
-            return turma;
+        
+
+        private async Task LoadNextPage()
+        {
+            try
+            {
+                DependencyService.Get<ILodingPageService>().ShowLoadingPage();
+
+                if (!string.IsNullOrEmpty(_cursoSelecionado) && !string.IsNullOrEmpty(_turmaSelecionada))
+                {
+                    var turmaSelecionada = await SelectTurma(_turmaSelecionada);
+
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new TurmaView(turmaSelecionada)));
+                    
+                    CursoSelecionado = string.Empty;
+                    TurmaSelecionada = string.Empty;
+                    
+                    DependencyService.Get<ILodingPageService>().HideLoadingPage();
+                }
+                else
+                {
+                    DependencyService.Get<ILodingPageService>().HideLoadingPage();
+                    await Application.Current.MainPage.DisplayAlert("Erro", "Selecione uma turma válida!", "OK");
+                }
+            } catch
+            {
+                DependencyService.Get<ILodingPageService>().HideLoadingPage();
+                await Application.Current.MainPage.DisplayAlert("Erro", "Ocorreu um erro inesperado!", "OK");
+            }        
+        }
+
+        private async Task<Turma> SelectTurma(string nomeTurma)
+        {
+            var turmas = await ApiServiceTurma.GetObjectsAsync(true);
+
+            return turmas.FirstOrDefault(t => t.NomeTurma.Equals(nomeTurma));
         }
     }
 }

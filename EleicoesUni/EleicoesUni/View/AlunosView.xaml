@@ -2,12 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.View.AlunosView"
-             Title="Alunos">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             Title="Alunos"
+             BackgroundColor="AntiqueWhite">
+    <StackLayout>
+        <ListView ItemsSource="{Binding Alunos}" HasUnevenRows="True" SeparatorVisibility="None" SelectionMode="None" VerticalScrollBarVisibility="Never">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="20,10,20,10">
+                            <Frame CornerRadius="10">
+                                <Label Text="{Binding NomeAluno}" TextColor="Black" FontSize="15" TextTransform="Uppercase"/>
+                            </Frame>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <StackLayout Margin="20,10,20,10">
+                    <Button Text="Gerenciar Alunos" BackgroundColor="#0000cd" CornerRadius="10" TextColor="White"/>
+                    <Label Text="*Acesso Restrito*" TextColor="OrangeRed" FontSize="10" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </ListView.Footer>
+        </ListView>
+    </StackLayout>
 </ContentPage>

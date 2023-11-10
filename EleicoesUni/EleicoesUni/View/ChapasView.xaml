@@ -4,11 +4,11 @@
              x:Class="EleicoesUni.View.ChapasView"
              Title="Chapas"
              BackgroundColor="AntiqueWhite">
-
+    
     <StackLayout>
         <ListView x:Name="ChapaListView" HasUnevenRows="True" SeparatorVisibility="None" SelectionMode="None" VerticalScrollBarVisibility="Never">
             <ListView.Header>
-                <StackLayout Margin="20,20,20,0">
+                <StackLayout Margin="20,20,20,10">
                     <StackLayout>
                         <Frame CornerRadius="10">
                             <StackLayout Padding="-10">
@@ -21,8 +21,8 @@
                         </Frame>
                     </StackLayout>
                     <StackLayout>
-                        <Label x:Name="Candidatos" Text="Candidatos" FontAttributes="Bold" FontSize="25" TextColor="Black" Margin="0,20,0,10"/>
-                        <Label x:Name="SemCandidatos" Text="Não há chapas cadastradas nesta turma!" IsVisible="false" FontAttributes="Bold" FontSize="20" TextColor="Black" Margin="0,20,0,10" HorizontalOptions="CenterAndExpand" Opacity="0.5"/>
+                        <Label x:Name="Candidatos" Text="Candidatos" FontAttributes="Bold" FontSize="25" TextColor="Black" Margin="0,10,0,0"/>
+                        <Label x:Name="SemCandidatos" Text="Não há chapas cadastradas nesta turma!" IsVisible="false" FontAttributes="Bold" FontSize="20" TextColor="Black" Margin="0,20,0,20" HorizontalOptions="CenterAndExpand" Opacity="0.5"/>
                     </StackLayout>
                 </StackLayout>
             </ListView.Header>
@@ -30,7 +30,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20,0,20,0">
-                            <Frame CornerRadius="10" Margin="0,0,0,10">
+                            <Frame CornerRadius="10" Margin="0,10,0,10">
                                 <StackLayout Margin="-6,-2,-6,-2">
                                     <StackLayout Orientation="Horizontal">
                                         <StackLayout HorizontalOptions="StartAndExpand">
@@ -56,8 +56,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.Footer>
-                <StackLayout Margin="20,0,20,20">
-                    <Button Text="Adicionar Chapa" BackgroundColor="#000080" CornerRadius="10" TextColor="White" Clicked="BTNAdicionarChapa"/>
+                <StackLayout Margin="20,10,20,0">
+                    <Button Text="Adicionar Chapa" BackgroundColor="#0000cd" CornerRadius="10" TextColor="White" Clicked="BTNAdicionarChapa"/>
+                    <Label Text="*Acesso Restrito*" TextColor="OrangeRed" FontSize="10" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                 </StackLayout>
             </ListView.Footer>
         </ListView>

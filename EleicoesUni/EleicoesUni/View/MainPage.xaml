@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.MainPage">
     <StackLayout>
-
         <!-- Fundo da tela principal -->
         <StackLayout.Background>
             <LinearGradientBrush>
@@ -13,7 +12,7 @@
             </LinearGradientBrush>
         </StackLayout.Background>
         <ScrollView VerticalOptions="FillAndExpand">
-            <Grid>
+            <StackLayout>
                 <StackLayout>
 
                     <!-- Logo e Título -->
@@ -58,10 +57,10 @@
                                     Opacity="0.8"
                                     Margin="0,0,0,-10"/>
                                 <Picker
-                                    x:Name="cursos"
                                     TextColor="Black"
                                     Title="Selecione uma opção"
-                                    SelectedIndexChanged="PKRSelecionado"/>
+                                    ItemsSource="{Binding Cursos}"
+                                    SelectedItem="{Binding CursoSelecionado}"/>
                                 <Label 
                                     Text="Turma" 
                                     FontSize="Medium" 
@@ -71,38 +70,24 @@
                                     Opacity="0.8"
                                     Margin="0,10,0,-10"/>
                                 <Picker
-                                    x:Name="turmas"
                                     TextColor="Black"
-                                    Title="Selecione uma opção"/>
+                                    Title="Selecione uma opção"
+                                    ItemsSource="{Binding Turmas}"
+                                    SelectedItem="{Binding TurmaSelecionada}"/>
                             </StackLayout>
-                            <Button 
-                                x:Name="BTNEntrar" 
+                            <Button
                                 Text="Entrar"
                                 BackgroundColor="#0000cd" 
                                 TextColor="White" 
                                 HorizontalOptions="CenterAndExpand"
                                 WidthRequest="200"
                                 CornerRadius="10"
-                                Clicked="BTNEntrar_Clicked"/>
+                                Command="{Binding Entrar}"/>
 
                         </StackLayout>
                     </Frame>
-
                 </StackLayout>
-
-                <!-- Tela de carregamento -->
-                <BoxView 
-                    x:Name="TelaPreta" 
-                    Color="Black" 
-                    Opacity="0.5" 
-                    IsVisible="false"/>
-                <ActivityIndicator 
-                    x:Name="Roda" 
-                    Color="White" 
-                    IsVisible="false" 
-                    IsRunning="false" 
-                    Scale="0.2"/>
-            </Grid>
+            </StackLayout>
         </ScrollView>
     </StackLayout>
 </ContentPage>

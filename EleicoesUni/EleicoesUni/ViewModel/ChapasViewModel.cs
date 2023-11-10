@@ -1,28 +1,22 @@
-﻿using EleicoesUni.Model;
-using EleicoesUni.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EleicoesUni.ViewModel
 {
-    public class ChapasViewModel
+    public class ChapasViewModel:GenericViewModel
     {
-        private static ApiService<Chapa> apiServiceChapa = new ApiService<Chapa>();
-        private static ApiService<Aluno> apiServiceAluno = new ApiService<Aluno>();
-        private static ApiService<Voto> apiServiceVoto = new ApiService<Voto>();
-
         private int idTurma;
 
-        public ChapasViewModel(int idTurma)
+        public ChapasViewModel(int idTurma):base()
         {
             this.idTurma = idTurma;
         }
 
-        public async Task<IEnumerable<ChapasInfoViewModel>> ObterChapasTurma()
+        public async Task<IEnumerable<ChapaInfoModel>> ObterChapasViewTurma()
         {
-            var chapasTurma = new List<ChapasInfoViewModel>();
+            var chapasTurma = new List<ChapaInfoModel>();
 
-            var chapas = await apiServiceChapa.GetObjectsAsync(true);
+            var chapas = await ApiServiceChapa.GetObjectsAsync(true);
 
             if (chapas != null)
             {
@@ -31,11 +25,14 @@ namespace EleicoesUni.ViewModel
                     if (chapa.IdTurma == idTurma)
                     {
                         var votos = await ObterQuantidadeVotosChapa(chapa.Id);
+
                         var p = await ObterPorcentagemVotosChapa(chapa.Id);
                         var porcentagem = p.ToString() + "%";
+
                         var lider = await ObterNomeAluno(chapa.IdLider);
                         var vice = await ObterNomeAluno(chapa.IdVice);
-                        chapasTurma.Add(new ChapasInfoViewModel(chapa.Id, lider, vice, porcentagem, votos));
+
+                        chapasTurma.Add(new ChapaInfoModel(chapa.Id, lider, vice, porcentagem, votos));
                     }
                 }
             }
@@ -45,7 +42,7 @@ namespace EleicoesUni.ViewModel
 
         private async Task<string> ObterNomeAluno(int idAluno)
         {
-            var aluno = await apiServiceAluno.GetObjectAsync(idAluno);
+            var aluno = await ApiServiceAluno.GetObjectAsync(idAluno);
 
             var nomeAluno = aluno.NomeAluno;
 
@@ -55,7 +52,7 @@ namespace EleicoesUni.ViewModel
         private async Task<int> ObterQuantidadeAlunosTurma()
         {
             int alunosTurma = 0;
-            var alunos = await apiServiceAluno.GetObjectsAsync(true);
+            var alunos = await ApiServiceAluno.GetObjectsAsync(true);
 
             if (alunos != null)
             {
@@ -74,7 +71,7 @@ namespace EleicoesUni.ViewModel
         private async Task<int> ObterQuantidadeVotosChapa(int idChapa)
         {
             int votosChapa = 0;
-            var votos = await apiServiceVoto.GetObjectsAsync(true);
+            var votos = await ApiServiceVoto.GetObjectsAsync(true);
 
             if (votos != null)
             {
@@ -93,7 +90,7 @@ namespace EleicoesUni.ViewModel
         private async Task<int> ObterQuantidadeVotosTurma()
         {
             var soma = 0;
-            var chapas = await apiServiceChapa.GetObjectsAsync(true);
+            var chapas = await ApiServiceChapa.GetObjectsAsync(true);
 
             if (chapas != null)
             {
@@ -165,7 +162,7 @@ namespace EleicoesUni.ViewModel
         }
     }
 
-    public class ChapasInfoViewModel
+    public class ChapaInfoModel
     {
         public int Id { get; set; }
         public string NomeLider { get; set; }
@@ -173,7 +170,7 @@ namespace EleicoesUni.ViewModel
         public string PorcentagemVotos { get; set; }
         public int QuantidadeVotos { get; set; }
 
-        public ChapasInfoViewModel(int id, string lider, string vice, string porcentagem, int quantidadeVotos)
+        public ChapaInfoModel(int id, string lider, string vice, string porcentagem, int quantidadeVotos)
         {
             Id = id;
             NomeLider = lider;

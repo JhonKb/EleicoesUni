@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EleicoesUni.ConfirmaVotoView"
+             BackgroundColor="AntiqueWhite">
+    <NavigationPage.TitleView>
+        <StackLayout>
+            <Label Text="confirmar voto" TextTransform="Uppercase" HorizontalOptions="CenterAndExpand"
+               FontSize="30"
+               TextColor="White"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <StackLayout Margin="20">
+        <Frame CornerRadius="10">
+            <StackLayout HorizontalOptions="Center" Margin="10">
+                <Label Text="Revisão" TextColor="Black" FontSize="25" TextTransform="Uppercase" HorizontalOptions="Center"/>
+                <StackLayout Margin="0,10,0,10">
+                    <Label Text="Codigo da chapa" TextColor="Black" FontSize="15" TextTransform="Uppercase" HorizontalOptions="Center"/>
+                    <Label Text="{Binding IdChapa}" TextColor="Black" Opacity="0.8" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Margin="0,10,0,10">
+                    <Label Text="Líder da Chapa" TextColor="Black" FontSize="15" TextTransform="Uppercase" HorizontalOptions="Center"/>
+                    <Label Text="{Binding NomeLider}" TextColor="Black" Opacity="0.8" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Margin="0,10,0,10">
+                    <Label Text="Vice-líder da chapa" TextColor="Black" FontSize="15" TextTransform="Uppercase" HorizontalOptions="Center"/>
+                    <Label Text="{Binding NomeVice}" TextColor="Black" Opacity="0.8" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Text="Cancelar" TextColor="White" CornerRadius="10" BackgroundColor="Red" Command="{Binding Cancel}" HorizontalOptions="FillAndExpand"/>
+                    <Button Text="Confirmar" TextColor="White" CornerRadius="10" BackgroundColor="Blue" Command="{Binding Confirm}" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

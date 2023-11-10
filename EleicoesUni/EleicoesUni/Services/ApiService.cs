@@ -1,8 +1,6 @@
-﻿using EleicoesUni.Model;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +8,7 @@ using Xamarin.Essentials;
 
 namespace EleicoesUni.Services
 {
-    public class ApiService<T>
+    public class ApiService<T>:IApiService<T>
     {
         HttpClient client;
         IEnumerable<T> objects;
@@ -18,8 +16,10 @@ namespace EleicoesUni.Services
         bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
         public ApiService()
         {
+            var clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://192.168.1.11/api/");
+            client.BaseAddress = new Uri("http://192.168.9.208/api/");
 
             objects = new List<T>();
         }

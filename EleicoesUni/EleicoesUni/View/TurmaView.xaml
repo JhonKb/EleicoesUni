@@ -5,7 +5,7 @@
             NavigationPage.HasBackButton="false">
     <NavigationPage.TitleView>
         <StackLayout>
-            <Label x:Name="turmaNome" 
+            <Label x:Name="TurmaNome" 
                    HorizontalOptions="CenterAndExpand"
                    FontSize="30"
                    TextColor="White"

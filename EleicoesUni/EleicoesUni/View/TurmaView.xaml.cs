@@ -11,10 +11,10 @@ namespace EleicoesUni.View
         {
             InitializeComponent();
             Children.Add(new ChapasView(turma.Id));
-            Children.Add(new AlunosView());
-            Children.Add(new VotarView());
+            Children.Add(new AlunosView(turma.Id));
+            Children.Add(new VotoView(turma.Id));
 
-            turmaNome.Text = turma.NomeTurma;
+            TurmaNome.Text = turma.NomeTurma;
         }
     }
 }

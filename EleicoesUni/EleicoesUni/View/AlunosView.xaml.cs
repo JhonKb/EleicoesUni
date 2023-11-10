@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EleicoesUni.ViewModel;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,9 +8,11 @@ namespace EleicoesUni.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AlunosView : ContentPage
     {
-        public AlunosView()
+        public AlunosView(int idTurma)
         {
             InitializeComponent();
+
+            BindingContext = new AlunosViewModel(idTurma);
         }
     }
 }

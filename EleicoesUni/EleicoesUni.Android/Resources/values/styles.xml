@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
+	<style name="Theme.Splash" parent="android:Theme">
+		<item name="android:windowBackground">@drawable/splash_screen</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+		<item name="colorPrimaryDark">#313131</item>
+	</style>
+
 	<style name="MainTheme" parent="MainTheme.Base">
 		<item name="android:forceDarkAllowed">false</item>
 		<item name="android:statusBarColor">#0000cd</item>
@@ -15,4 +22,5 @@
 		<!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets --> 
 	</style>
+
 </resources>

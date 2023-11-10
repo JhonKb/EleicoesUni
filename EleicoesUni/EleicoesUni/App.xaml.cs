@@ -1,4 +1,5 @@
-﻿using EleicoesUni.View;
+﻿using EleicoesUni.Services;
+using EleicoesUni.View;
 using Xamarin.Forms;
 
 namespace EleicoesUni
@@ -8,11 +9,13 @@ namespace EleicoesUni
         public App()
         {
             InitializeComponent();
+
             MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
+            DependencyService.Get<ILodingPageService>();
         }
 
         protected override void OnSleep()

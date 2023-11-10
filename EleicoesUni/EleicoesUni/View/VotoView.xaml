@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EleicoesUni.View.VotoView"
+             Title="Votar"
+             BackgroundColor="AntiqueWhite">
+    <ScrollView>
+        <Grid>
+            <StackLayout Margin="20">
+                <Frame CornerRadius="10">
+                    <StackLayout>
+                        <Label Text="Código da Chapa:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Picker ItemsSource="{Binding Chapas}" SelectedItem="{Binding ChapaSelecionada}" TextColor="Black" Title="Selecione uma opção"/>
+                        <Label Text="Nome:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Entry Text="{Binding NomeAluno}" TextColor="Black" Placeholder="Insira seu nome"/>
+                        <Label Text="Sua Matrícula:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Entry Text="{Binding Matricula}" Keyboard="Numeric" TextColor="Black" Placeholder="Insira sua matrícula"/>
+                        <Label Text="Matrícula deve ter 8 dígitos sem 0 no início!" IsVisible="{Binding IsVisibleMatricula}" TextColor="OrangeRed" FontSize="12" Margin="5,-10,0,10"/>
+                        <Button CornerRadius="10" Text="Avançar" TextColor="White" TextTransform="Uppercase" BackgroundColor="#0000cd" Command="{Binding Avancar}"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
