@@ -83,7 +83,6 @@
                                 WidthRequest="200"
                                 CornerRadius="10"
                                 Command="{Binding Entrar}"/>
-
                         </StackLayout>
                     </Frame>
                 </StackLayout>

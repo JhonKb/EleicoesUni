@@ -1,5 +1,5 @@
 ﻿using EleicoesUni.Model;
-using EleicoesUni.Services;
+using EleicoesUni.Service;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

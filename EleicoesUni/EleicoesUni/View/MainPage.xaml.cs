@@ -7,13 +7,11 @@ namespace EleicoesUni
     {
         public MainPage()
         {
+            var viewModel = new MainPageViewModel();
+            BindingContext = viewModel;
+
             //Inicializando página
             InitializeComponent();
-
-            var viewModel = new MainPageViewModel();
-            
-
-            BindingContext = viewModel;
         }
     }
 }

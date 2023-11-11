@@ -9,8 +9,8 @@ namespace EleicoesUni.View
     {
         public VotoView(int idTurma)
         {
-            InitializeComponent();
             BindingContext = new VotoViewModel(idTurma);
+            InitializeComponent();
         }
     }
 }

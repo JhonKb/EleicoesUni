@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace EleicoesUni.Services
+namespace EleicoesUni.Service
 {
-    public class ApiService<T>:IApiService<T>
+    public class ApiService<T>
     {
         HttpClient client;
         IEnumerable<T> objects;
@@ -19,7 +19,7 @@ namespace EleicoesUni.Services
             var clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://192.168.9.208/api/");
+            client.BaseAddress = new Uri("https://eleicoesuni.000webhostapp.com/api/");
 
             objects = new List<T>();
         }

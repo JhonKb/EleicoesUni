@@ -9,34 +9,11 @@ namespace EleicoesUni.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChapasView : ContentPage
-    {
-        private ChapasViewModel viewModel;
-
+    { 
         public ChapasView(int idTurma)
         {
-            viewModel = new ChapasViewModel(idTurma);
-            _ = CarregarDados();
+            BindingContext = new ChapasViewModel(idTurma);
             InitializeComponent();
-        }
-
-        public async Task CarregarDados()
-        {
-            var porcentagem = await viewModel.ObterPorcentagemVotosTurma();
-            PorcentagemTotal.Text = porcentagem.ToString() + "% dos votos totalizados";
-
-            var votosRestantes = await viewModel.ObterQuantidadeVotosRestantesTurma();
-            VotosRestantes.Text = "(" + votosRestantes.ToString() + " votos restantes)";
-
-            ProgressVotos.Progress = await viewModel.ObterProgressoBarra();
-            
-            var chapas = await viewModel.ObterChapasViewTurma();
-            ChapaListView.ItemsSource = chapas;
-
-            if (chapas.Count() == 0)
-            {
-                Candidatos.IsVisible = false;
-                SemCandidatos.IsVisible = true;
-            }
         }
 
         private void BTNAdicionarChapa(object sender, EventArgs e)

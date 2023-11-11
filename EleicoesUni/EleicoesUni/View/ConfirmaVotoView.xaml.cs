@@ -8,9 +8,8 @@ namespace EleicoesUni
     {
         public ConfirmaVotoView(int votante, Chapa chapa)
         {
-            InitializeComponent();
-
             BindingContext = new CofirmaVotoViewModel(votante, chapa);
+            InitializeComponent();
         }
     }
 }

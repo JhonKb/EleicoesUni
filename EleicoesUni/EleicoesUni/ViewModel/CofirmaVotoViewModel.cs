@@ -1,5 +1,5 @@
 ﻿using EleicoesUni.Model;
-using EleicoesUni.Services;
+using EleicoesUni.Service;
 using EleicoesUni.View;
 using System.Threading.Tasks;
 using System.Windows.Input;

@@ -1,165 +1,202 @@
-﻿using System.Collections.Generic;
+﻿using EleicoesUni.Model;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace EleicoesUni.ViewModel
 {
-    public class ChapasViewModel:GenericViewModel
+    public class ChapasViewModel : GenericViewModel
     {
-        private int idTurma;
+        public ObservableCollection<ChapaInfoModel> ChapasInfo { get; } = new ObservableCollection<ChapaInfoModel>();
 
-        public ChapasViewModel(int idTurma):base()
+        private string _porcentagemTotal;
+        public string PorcentagemTotal
         {
-            this.idTurma = idTurma;
+            get => _porcentagemTotal;
+            private set
+            {
+               if (value != _porcentagemTotal)
+               {
+                    _porcentagemTotal = value;
+               }
+               OnPropertyChanged(nameof(PorcentagemTotal));
+            }
         }
 
-        public async Task<IEnumerable<ChapaInfoModel>> ObterChapasViewTurma()
+        private string _qtdVotosRestantes;
+        public string QtdVotosRestantes
         {
-            var chapasTurma = new List<ChapaInfoModel>();
+            get => _qtdVotosRestantes;
+            private set
+            {
+                if (_qtdVotosRestantes != value)
+                {
+                    _qtdVotosRestantes = value;
+                }
+                OnPropertyChanged(nameof(QtdVotosRestantes));
+            }
+        }
+
+        private double _progressBar;
+        public double ProgressBar
+        {
+            get => _progressBar;
+            private set
+            {
+                if (_progressBar != value)
+                {
+                    _progressBar = value;
+                }
+                OnPropertyChanged(nameof(ProgressBar));
+            }
+        }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing 
+        {
+            get => _isRefreshing; 
+            private set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                }
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
+
+        public ICommand Refresh { get; private set; }
+
+        public bool IsEmpty
+        {
+            get => ChapasInfo.Count() > 0;
+        }
+
+        private IEnumerable<Chapa> Chapas { get; set; }
+
+        private string _nomeLider;
+
+        private string _nomeVice;
+
+        private string _porcentagem;
+
+        private int _qtdVotos;
+
+        private int _idTurma;
+
+        private int _qtdAlunos;
+
+        private int _qtdVotosTotais;
+
+        public ChapasViewModel(int idTurma)
+        {
+            _idTurma = idTurma;
+            _= LoadDados();
+            Refresh = new Command(async () =>
+            {
+                await LoadDados();
+                IsRefreshing = false;
+            });
+        }
+        
+        public async Task LoadDados()
+        {
+            ChapasInfo.Clear();
+            await GetChapas();
+            await GetDadosTotais();
+            if (Chapas.Count() > 0)
+            {
+                foreach (var chapa in Chapas)
+                {
+                    await GetNomeAlunos(chapa.IdLider, chapa.IdVice);
+                    await GetStatisticsChapas(chapa.Id);
+                    
+                    ChapasInfo.Add(new ChapaInfoModel(chapa.Id, _nomeLider, _nomeVice, _porcentagem, _qtdVotos));
+                }
+            }
+        }
+        private async Task GetChapas()
+        {
 
             var chapas = await ApiServiceChapa.GetObjectsAsync(true);
-
-            if (chapas != null)
-            {
-                foreach (var chapa in chapas)
-                {
-                    if (chapa.IdTurma == idTurma)
-                    {
-                        var votos = await ObterQuantidadeVotosChapa(chapa.Id);
-
-                        var p = await ObterPorcentagemVotosChapa(chapa.Id);
-                        var porcentagem = p.ToString() + "%";
-
-                        var lider = await ObterNomeAluno(chapa.IdLider);
-                        var vice = await ObterNomeAluno(chapa.IdVice);
-
-                        chapasTurma.Add(new ChapaInfoModel(chapa.Id, lider, vice, porcentagem, votos));
-                    }
-                }
-            }
-
-            return chapasTurma;
+            Chapas = chapas.Where(c => c.IdTurma == _idTurma);
         }
 
-        private async Task<string> ObterNomeAluno(int idAluno)
+        public async Task GetDadosTotais()
         {
-            var aluno = await ApiServiceAluno.GetObjectAsync(idAluno);
+            await GetQtdAlunos();
+            await GetQtdVotosTotais();
 
-            var nomeAluno = aluno.NomeAluno;
-
-            return nomeAluno;
-        }
-
-        private async Task<int> ObterQuantidadeAlunosTurma()
-        {
-            int alunosTurma = 0;
-            var alunos = await ApiServiceAluno.GetObjectsAsync(true);
-
-            if (alunos != null)
-            {
-                foreach (var aluno in alunos)
-                {
-                    if (aluno.IdTurma == idTurma)
-                    {
-                        alunosTurma++;
-                    }
-                }
-            }
-
-            return alunosTurma;
-        }
-
-        private async Task<int> ObterQuantidadeVotosChapa(int idChapa)
-        {
-            int votosChapa = 0;
-            var votos = await ApiServiceVoto.GetObjectsAsync(true);
-
-            if (votos != null)
-            {
-                foreach (var voto in votos)
-                {
-                    if (voto.IdChapa == idChapa)
-                    {
-                        votosChapa++;
-                    }
-                }
-            }
-
-            return votosChapa;
-        }
-
-        private async Task<int> ObterQuantidadeVotosTurma()
-        {
-            var soma = 0;
-            var chapas = await ApiServiceChapa.GetObjectsAsync(true);
-
-            if (chapas != null)
-            {
-                foreach (var chapa in chapas)
-                {
-                    if (chapa.IdTurma == idTurma)
-                    {
-                        soma += await ObterQuantidadeVotosChapa(chapa.Id);
-                    }
-                }
-            }
-
-            return soma;
-        }
-
-        public async Task<double> ObterPorcentagemVotosChapa(int idChapa)
-        {
-            double porcentagem = 0;
-            var votosTurma = await ObterQuantidadeVotosTurma();
-            var votosChapa = await ObterQuantidadeVotosChapa(idChapa);
-
-            if (votosChapa > 0)
-            {
-                porcentagem = (votosChapa * 100) / votosTurma;
-            }
-
-            return porcentagem;
-        }
-
-        public async Task<double> ObterPorcentagemVotosTurma()
-        {
-            var qtdAlunos = await ObterQuantidadeAlunosTurma();
-            var qtdVotos = await ObterQuantidadeVotosTurma();
-            var porcentagem = 0;
-
-            if (qtdVotos > 0)
-            {
-                porcentagem = (qtdVotos * 100) / qtdAlunos;
-            }
-
-            return porcentagem;
-        }
-
-        public async Task<double> ObterProgressoBarra()
-        {
-            double progresso = 0;
-            var porcentagem = await ObterPorcentagemVotosTurma();
-
+            //Calculando porcentagem
+            var porcentagem = 0;            
+            if (_qtdVotosTotais > 0)            
+                porcentagem = (_qtdVotosTotais * 100) / _qtdAlunos;    
+            
+            //Calculando métrica da barra de progresso
             if (porcentagem > 0)
-            {
-                progresso = porcentagem / 100;
-            }
+                ProgressBar = porcentagem / 100;
 
-            return progresso;
+            PorcentagemTotal = porcentagem.ToString() + "%";
+
+            //Calculando votos restantes
+            var qtdRestante = 0;
+            if (_qtdAlunos > 0)           
+                qtdRestante = _qtdAlunos - _qtdVotosTotais;
+          
+            QtdVotosRestantes = "(" + qtdRestante.ToString() + " votos restantes)";
         }
 
-        public async Task<int> ObterQuantidadeVotosRestantesTurma()
+        private async Task GetQtdAlunos()
         {
-            var votosTurma = await ObterQuantidadeVotosTurma();
-            var alunosTurma = await ObterQuantidadeAlunosTurma();
-            var votosRestantes = alunosTurma;
-
-            if (alunosTurma > 0)
+            var alunos = await ApiServiceAluno.GetObjectsAsync(true);
+            if (alunos.Count() > 0)
             {
-                votosRestantes = alunosTurma - votosTurma;
+                var alunosFiltrados = alunos.Where(a => a.IdTurma == _idTurma);
+                _qtdAlunos = alunosFiltrados.Count();
             }
-
-            return votosRestantes;
         }
+
+        private async Task GetQtdVotosTotais()
+        {
+            _qtdVotosTotais = 0;
+            foreach (var chapa in Chapas)
+            {
+                await GetQtdVotos(chapa.Id);
+                _qtdVotosTotais += _qtdVotos;
+            }
+        }
+
+        private async Task GetNomeAlunos(int idLider, int idVice)
+        {
+            var lider = await ApiServiceAluno.GetObjectAsync(idLider);
+            _nomeLider = lider.NomeAluno;
+
+            var vice = await ApiServiceAluno.GetObjectAsync(idVice);
+            _nomeVice = vice.NomeAluno;
+        }
+
+        public async Task GetStatisticsChapas(int idChapa)
+        {
+            await GetQtdVotos(idChapa);
+            var p = 0;
+            if (_qtdVotos > 0)
+                p = (_qtdVotos * 100) / _qtdVotosTotais;
+            
+            _porcentagem = p.ToString() + "%";
+        }
+
+        private async Task GetQtdVotos(int idChapa)
+        {
+            var votos = await ApiServiceVoto.GetObjectsAsync(true);
+            if (votos.Count() > 0)
+            {
+                var votosFiltrados = votos.Where(v => v.IdChapa == idChapa);
+                _qtdVotos = votosFiltrados.Count();
+            }
+        }      
     }
 
     public class ChapaInfoModel

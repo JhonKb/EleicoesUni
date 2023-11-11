@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Graphics.Drawables;
 using Android.Views;
-using EleicoesUni.Services;
+using EleicoesUni.Service;
 using System;
 using Xamarin.Forms;
 using EleicoesUni.Droid;

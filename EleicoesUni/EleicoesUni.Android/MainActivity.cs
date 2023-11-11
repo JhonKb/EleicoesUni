@@ -5,11 +5,11 @@ using Android.OS;
 using Xamarin.Forms;
 using Android.Views;
 using AndroidX.AppCompat.App;
-using EleicoesUni.Services;
+using EleicoesUni.Service;
 
 namespace EleicoesUni.Droid
 {
-    [Activity(Label = "EleicoesUni", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(Label = "EleicoesUni", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

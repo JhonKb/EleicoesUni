@@ -20,7 +20,7 @@
             <ListView.Footer>
                 <StackLayout Margin="20,10,20,10">
                     <Button Text="Gerenciar Alunos" BackgroundColor="#0000cd" CornerRadius="10" TextColor="White"/>
-                    <Label Text="*Acesso Restrito*" TextColor="OrangeRed" FontSize="10" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Label Text="(Não Implementado)" TextColor="OrangeRed" FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                 </StackLayout>
             </ListView.Footer>
         </ListView>

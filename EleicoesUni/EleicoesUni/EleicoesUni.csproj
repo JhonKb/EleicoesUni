@@ -12,7 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\ApiServiceData.cs" />
+    <Compile Remove="Service\ApiServiceData.cs" />
+    <Compile Remove="Service\IApiService.cs" />
   </ItemGroup>
 
   <ItemGroup>

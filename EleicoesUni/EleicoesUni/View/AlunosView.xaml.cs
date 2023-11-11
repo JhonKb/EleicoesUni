@@ -10,9 +10,8 @@ namespace EleicoesUni.View
     {
         public AlunosView(int idTurma)
         {
-            InitializeComponent();
-
             BindingContext = new AlunosViewModel(idTurma);
+            InitializeComponent();
         }
     }
 }

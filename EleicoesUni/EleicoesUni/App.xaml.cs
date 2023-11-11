@@ -1,4 +1,4 @@
-﻿using EleicoesUni.Services;
+﻿using EleicoesUni.Service;
 using EleicoesUni.View;
 using Xamarin.Forms;
 

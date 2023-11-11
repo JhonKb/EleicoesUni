@@ -13,7 +13,6 @@ namespace EleicoesUni.View
             Children.Add(new ChapasView(turma.Id));
             Children.Add(new AlunosView(turma.Id));
             Children.Add(new VotoView(turma.Id));
-
             TurmaNome.Text = turma.NomeTurma;
         }
     }

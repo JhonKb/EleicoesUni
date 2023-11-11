@@ -1,5 +1,5 @@
 ﻿using EleicoesUni.Model;
-using EleicoesUni.Services;
+using EleicoesUni.Service;
 using EleicoesUni.View;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -42,9 +42,8 @@ namespace EleicoesUni.ViewModel
                 OnPropertyChanged(nameof(TurmaSelecionada));
             }
         }
-        
-        public ICommand Entrar { get; private set; }
 
+        public ICommand Entrar { get; private set; }
 
         public MainPageViewModel()
         {
@@ -55,7 +54,7 @@ namespace EleicoesUni.ViewModel
         private async Task LoadCursos()
         {
             var turmas = await ApiServiceTurma.GetObjectsAsync(true);
-            if (turmas != null)
+            if (turmas.Count() > 0)
             {
                 var cursos = turmas.Select(t => t.CursoTurma).Distinct();
                 foreach (var curso in cursos)
@@ -70,7 +69,7 @@ namespace EleicoesUni.ViewModel
             Turmas.Clear();
             var turmas = await ApiServiceTurma.GetObjectsAsync(true);
 
-            if (turmas != null)
+            if (turmas.Count() > 0)
             {
                 var turmasFiltradas = turmas.Where(t => t.CursoTurma == curso);
                 foreach (var turma in turmasFiltradas)
@@ -79,8 +78,6 @@ namespace EleicoesUni.ViewModel
                 }
             }
         }
-
-        
 
         private async Task LoadNextPage()
         {
