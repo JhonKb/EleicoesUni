@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.View.AlunosView"
              Title="Alunos"
-             BackgroundColor="AntiqueWhite">
+             BackgroundColor="#Dcd9cd">
     <StackLayout>
         <ListView ItemsSource="{Binding Alunos}" HasUnevenRows="True" SeparatorVisibility="None" SelectionMode="None" VerticalScrollBarVisibility="Never">
             <ListView.ItemTemplate>

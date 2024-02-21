@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EleicoesUni.View.ChapasView"
              Title="Chapas"
-             BackgroundColor="AntiqueWhite">
+             BackgroundColor="#Dcd9cd">
     <StackLayout>
         <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
             <ListView ItemsSource="{Binding ChapasInfo}" HasUnevenRows="True" SeparatorVisibility="None" SelectionMode="None" VerticalScrollBarVisibility="Never">
@@ -16,7 +16,7 @@
                                         <Label Text="{Binding PorcentagemTotal}" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
                                     </StackLayout>
                                     <Label Text="{Binding QtdVotosRestantes}" TextColor="#006d65" FontAttributes="Bold"/>
-                                    <ProgressBar Progress="{Binding ProgressBar}"/>
+                                    <ProgressBar ProgressColor="Green" Progress="{Binding ProgressBar}"/>
                                 </StackLayout>
                             </Frame>
                         </StackLayout>

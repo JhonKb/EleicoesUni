@@ -40,8 +40,8 @@ namespace EleicoesUni.ViewModel
             }
         }
 
-        private double _progressBar;
-        public double ProgressBar
+        private float _progressBar;
+        public float ProgressBar
         {
             get => _progressBar;
             private set
@@ -137,7 +137,7 @@ namespace EleicoesUni.ViewModel
             
             //Calculando métrica da barra de progresso
             if (porcentagem > 0)
-                ProgressBar = porcentagem / 100;
+                ProgressBar = (float)porcentagem / 100;
 
             PorcentagemTotal = porcentagem.ToString() + "%";
 
